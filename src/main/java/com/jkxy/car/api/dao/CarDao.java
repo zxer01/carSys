@@ -2,6 +2,7 @@ package com.jkxy.car.api.dao;
 
 import com.jkxy.car.api.pojo.Car;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface CarDao {
 
     @Insert("insert into carMessage(carName,carType,price,carSeries) values(#{carName},#{carType},#{price},#{carSeries})")
     void insertCar(Car car);
+
+    @Select("select * from carMessage limit #{start},#{end}")
+    List<Car> splitPage(int start,int end);
 }

@@ -2,10 +2,12 @@ package com.jkxy.car.api.controller;
 
 import com.jkxy.car.api.pojo.Car;
 import com.jkxy.car.api.service.CarService;
+import com.jkxy.car.api.service.OrderService;
 import com.jkxy.car.api.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -14,6 +16,10 @@ import java.util.List;
 public class CarController {
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private OrderService orderService;
+
 
     /**
      * 查询所有
@@ -75,7 +81,6 @@ public class CarController {
 
     /**
      * 通过id增加
-     *
      * @param car
      * @return
      */
@@ -84,4 +89,30 @@ public class CarController {
         carService.insertCar(car);
         return JSONResult.ok();
     }
+
+
+    /**
+     * 分页查询
+     * @param currPage
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("pageSplit")
+    public JSONResult pageSplit(@PathVariable int currPage,int pageSize){
+        List<Car> cars = carService.findCarBySplitPage(currPage,pageSize);
+        return JSONResult.ok(cars);
+    }
+
+    /**
+     * 购买车辆
+     * @param car
+     * @param count
+     * @return
+     */
+    @PostMapping("buyCar")
+    public JSONResult buyCarItem(Car car,int count,String userid){
+        orderService.buyCar(car,count,userid);
+        return JSONResult.ok();
+    }
+
 }

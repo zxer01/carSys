@@ -18,4 +18,10 @@ public interface CarService {
     void updateById(Car car);
 
     void insertCar(Car car);
+
+    /**购买车辆*/
+    List<Car> buyCar(Car car,int count);
+
+    /**分页查询*/
+    List<Car> findCarBySplitPage(int currentPage,int pageSize);
 }

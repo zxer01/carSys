@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service("carService")
 public class CarServiceImpl implements CarService {
-    @Autowired
+    @Resource
     private CarDao carDao;
 
     @Override
@@ -43,5 +45,18 @@ public class CarServiceImpl implements CarService {
     @Override
     public void insertCar(Car car) {
         carDao.insertCar(car);
+    }
+
+    @Override
+    public List<Car> buyCar(Car car,int count){
+        return null;
+    }
+
+    @Override
+    public List<Car> findCarBySplitPage(int currentPage,int pageSize){
+        List<Car> cars = carDao.splitPage((currentPage-1)*pageSize,currentPage*pageSize);
+        //Map<String,Object> map = new HashMap<>();
+        //map.put("list",cars);
+        return cars;
     }
 }
